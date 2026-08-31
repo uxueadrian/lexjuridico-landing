@@ -1,0 +1,67 @@
+---
+import Reveal from "./Reveal.astro";
+import { Award, HeartHandshake, ShieldCheck, Target } from "@lucide/astro";
+
+const items = [
+  {
+    icon: Award,
+    title: "Experiencia jurídica",
+    line: "Conocemos a fondo cada materia que atendemos.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Atención cercana",
+    line: "Te escuchamos y te explicamos cada paso con claridad.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Confidencialidad",
+    line: "Tu información está protegida en todo momento.",
+  },
+  {
+    icon: Target,
+    title: "Compromiso con resultados",
+    line: "Trabajamos con dedicación por tu mejor solución legal.",
+  },
+];
+---
+
+<section class="bg-carbon py-20 sm:py-28" aria-label="¿Por qué elegirnos?">
+  <div class="mx-auto max-w-6xl px-6">
+    <Reveal>
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="text-sm font-medium uppercase tracking-[0.2em] text-gold">
+          Nuestras ventajas
+        </p>
+        <h2 class="mt-3 text-3xl font-semibold text-ivory sm:text-4xl">
+          ¿Por qué elegirnos?
+        </h2>
+      </div>
+    </Reveal>
+
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item, index) => {
+        const Icon = item.icon;
+        return (
+          <Reveal delay={index * 80}>
+            <div
+              class="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-7 text-center transition-all duration-300 hover:-translate-y-1 hover:border-gold/40"
+            >
+              <div
+                class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/15 text-gold ring-1 ring-gold/30 transition-colors group-hover:bg-gold group-hover:text-carbon"
+              >
+                <Icon width="24" height="24" />
+              </div>
+              <h3 class="mt-5 text-lg font-semibold text-ivory">
+                {item.title}
+              </h3>
+              <p class="mt-2 text-sm leading-relaxed text-ivory/70">
+                {item.line}
+              </p>
+            </div>
+          </Reveal>
+        );
+      })}
+    </div>
+  </div>
+</section>
