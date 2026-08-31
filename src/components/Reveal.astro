@@ -1,0 +1,63 @@
+---
+/**
+ * Reveal — scroll-reveal wrapper.
+ *
+ * No-JS safe: content is visible by default in markup. Only when this
+ * script runs does it add `js-ready` to <html> (which triggers the
+ * hidden start state in CSS) and observes each target. If
+ * IntersectionObserver is unavailable, no target is ever hidden.
+ *
+ * Reduced motion is respected entirely in CSS (global.css).
+ */
+interface Props {
+  delay?: number;
+  class?: string;
+  children?: any;
+}
+
+const { delay = 0, class: className = "" } = Astro.props;
+---
+
+<div class:list={["reveal", className]} data-reveal data-reveal-delay={delay}>
+  <slot />
+</div>
+
+<script>
+  // Mark the document as JS-capable. The hidden start state in CSS only
+  // applies under this class, so content is visible without JS.
+  document.documentElement.classList.add("js-ready");
+
+  const revealDelay = (element: HTMLElement) =>
+    Number(element.dataset.revealDelay) || 0;
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            const delay = revealDelay(target);
+            target.style.transitionDelay = `${delay}ms`;
+            target.classList.add("is-visible");
+            // Reveal once; stop observing.
+            observer.unobserve(target);
+            // Clear the inline transition-delay so future state changes aren't deferred.
+            window.setTimeout(() => {
+              target.style.transitionDelay = "";
+            }, delay + 700);
+          }
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    document
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => observer.observe(el));
+  } else {
+    // Fallback: no observer -> ensure everything is visible.
+    document
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => el.classList.add("is-visible"));
+  }
+</script>
