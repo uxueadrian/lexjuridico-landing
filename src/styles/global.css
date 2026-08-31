@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ── Brand tokens ──────────────────────────────────────────────
+   The six brand colors live ONLY here, inside @theme.
+   Components must reference tokens (bg-carbon, text-ivory, ...);
+   ad-hoc hex values are forbidden by spec. */
+@theme {
+  --color-carbon: #1c1c1c; /* gris carbón — main background */
+  --color-gold: #b8953e; /* dorado sobrio — CTAs and accents */
+  --color-beige: #e8ddc8; /* beige cálido */
+  --color-ivory: #f7f4ed; /* marfil — main text on dark */
+  --color-stone: #6b6b6b; /* gris medio — secondary text */
+  --color-white: #ffffff; /* blanco */
+}
+
+/* Map the self-hosted Geist variable (Astro fonts API) onto Tailwind's sans. */
+@theme inline {
+  --font-sans: var(--font-geist);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-carbon);
+    color: var(--color-ivory);
+    font-family: var(--font-geist, system-ui, sans-serif);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Focus indicator: dorado ring on every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+}
+
+/* ── Scroll reveal (Reveal.astro toggles .is-visible) ───────────
+   Content is FULLY VISIBLE by default (no-JS safe). Only when JS is
+   present (`js-ready` on <html>) does `.reveal` start hidden so the
+   observer can animate it in. This guarantees content never stays
+   hidden if IntersectionObserver is unavailable. */
+.js-ready .reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+}
+
+.js-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+/* ── Hide scrollbars while keeping scroll (mobile menu, carousel) ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────
+   Content stays visible; only movement is removed. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
