@@ -1,5 +1,5 @@
 ---
-import { WHATSAPP_NUMBER } from "../lib/links";
+import { WHATSAPP_NUMBER, waLink } from "../lib/links";
 
 interface Props {
   title?: string;
@@ -14,17 +14,39 @@ const {
   children,
 } = Astro.props;
 
-// DATA_PENDING: domain confirmed later. Canonical/OG url swapped in one file.
-const SITE_URL_PENDING = "https://DATA_PENDING.example";
+// Domain real provide by the client. Canonical/OG/JSON-LD all derive from here.
+const SITE_URL = "https://lexjuridicopinedaasociados.com.mx";
+
+// Provisional Open Graph preview (hero image). Replace when a real brand/preview
+// image is provided.
+const OG_IMAGE = `${SITE_URL}/justicia.jpg`;
 
 const legalServiceJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "LegalService",
   name: "Lexjuridico Pineda & Asociados",
   telephone: "+52 777 240 2439",
-  url: SITE_URL_PENDING,
-  address: "Plaza de Armas, Centro, Cuernavaca, Morelos", // provisional
-  areaServed: "Cuernavaca, Morelos", // provisional
+  url: SITE_URL,
+  image: OG_IMAGE,
+  priceRange: "$$",
+  areaServed: [
+    "Cuernavaca",
+    "Cuernavaca, Morelos",
+    "Morelos",
+  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Plaza de Armas, Centro", // provisional
+    addressLocality: "Cuernavaca",
+    addressRegion: "Morelos",
+    addressCountry: "MX",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 18.9220008,
+    longitude: -99.2298682,
+  },
+  sameAs: [waLink("Hola, quisiera contactar con Lexjuridico Pineda & Asociados.")],
 });
 
 const faqItems = [
@@ -66,15 +88,29 @@ const faqJsonLd = JSON.stringify({
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1c1c1c" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={SITE_URL_PENDING} />
+    <link rel="canonical" href={SITE_URL} />
 
+    <!-- Open Graph (Facebook / WhatsApp / LinkedIn previsualización) -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lexjuridico Pineda & Asociados" />
+    <meta property="og:locale" content="es_MX" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={SITE_URL_PENDING} />
+    <meta property="og:url" content={SITE_URL} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1656" />
+    <meta property="og:image:height" content="2662" />
+    <meta property="og:image:alt" content="Lexjuridico Pineda & Asociados — Abogados en Cuernavaca" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={OG_IMAGE} />
 
     <script type="application/ld+json" set:html={legalServiceJsonLd} />
     <script type="application/ld+json" set:html={faqJsonLd} />
