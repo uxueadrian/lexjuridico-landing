@@ -1,0 +1,45 @@
+---
+import Reveal from "./Reveal.astro";
+
+const steps = [
+  {
+    number: "01",
+    title: "Contáctanos",
+    line: "Cuéntanos tu caso por WhatsApp o el formulario.",
+  },
+  {
+    number: "02",
+    title: "Evaluamos",
+    line: "Analizamos tu situación y te orientamos.",
+  },
+  {
+    number: "03",
+    title: "Asesoría",
+    line: "Te acompañamos con una estrategia clara y cercana.",
+  },
+];
+---
+
+<section class="bg-carbon py-20 sm:py-28" aria-label="Nuestro proceso">
+  <div class="mx-auto max-w-6xl px-6">
+    <Reveal>
+      <h2 class="text-center text-3xl font-semibold text-ivory sm:text-4xl">
+        Nuestro proceso
+      </h2>
+    </Reveal>
+
+    <div class="mt-12 grid gap-10 md:grid-cols-3">
+      {steps.map((step, index) => (
+        <Reveal delay={index * 80}>
+          <div class="text-center md:text-left">
+            <span class="text-5xl font-semibold text-gold/60">
+              {step.number}
+            </span>
+            <h3 class="mt-3 text-xl font-semibold text-ivory">{step.title}</h3>
+            <p class="mt-2 text-ivory/70">{step.line}</p>
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  </div>
+</section>
