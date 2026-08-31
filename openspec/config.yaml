@@ -1,0 +1,39 @@
+# openspec/config.yaml — lexjuridico-landing
+schema: spec-driven
+
+context: |
+  Client landing page for despacho jurídico "Lexjuridico Pineda & Asociados".
+  Stack (planned): Astro 7 + Tailwind 4 + @lucide/astro + vanilla scripts (no frameworks)
+    + Geist via Astro fonts API + @emailjs/browser for the contact form. Package manager: pnpm.
+  Architecture: static multi-section landing (hero, services, about, contact form). No SSR/data layer.
+  Testing: no test runner; verification gate is `pnpm build`. Strict TDD disabled.
+  UI copy: Spanish only (Argentine/neutral professional register). Branding: dark/professional law-firm.
+  Persistence: hybrid (openspec files + engram). Delivery: auto-chain. Review budget: 800 lines.
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Define sections and full-page scope up front (landing is single-shot deliverable)
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - UI copy requirements MUST be in Spanish
+  design:
+    - Prefer Astro islands/components over frameworks
+    - Tailwind utility classes over custom CSS unless design tokens require it
+    - Document section/data-flow decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+    - Verification gate per task: `pnpm build` must succeed
+  apply:
+    guidelines:
+      - Follow existing code patterns (none yet — establish conventions)
+    tdd: false           # no test runner; landing page
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "pnpm build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
