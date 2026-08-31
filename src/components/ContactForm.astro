@@ -42,6 +42,69 @@
     />
   </div>
 
+  <fieldset class="space-y-3 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+    <legend class="px-1 text-sm font-semibold text-gold">
+      Agenda tu cita (opcional)
+    </legend>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="cf-date" class="text-sm font-medium text-ivory">Día preferente</label>
+      <select
+        id="cf-date"
+        name="date"
+        class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory focus:border-gold focus:outline-none"
+      >
+        <option value="">Selecciona un día</option>
+        <option value="Lunes">Lunes</option>
+        <option value="Martes">Martes</option>
+        <option value="Miércoles">Miércoles</option>
+        <option value="Jueves">Jueves</option>
+        <option value="Viernes">Viernes</option>
+        <option value="Sábado">Sábado (cita previa)</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="cf-time" class="text-sm font-medium text-ivory">Hora preferente</label>
+      <select
+        id="cf-time"
+        name="time"
+        class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory focus:border-gold focus:outline-none"
+      >
+        <option value="">Selecciona una hora</option>
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col gap-1.5">
+      <label for="cf-mode" class="text-sm font-medium text-ivory">Modalidad</label>
+      <select
+        id="cf-mode"
+        name="mode"
+        class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory focus:border-gold focus:outline-none"
+      >
+        <option value="">Selecciona la modalidad</option>
+        <option value="Presencial">Presencial</option>
+        <option value="Videollamada">Videollamada</option>
+        <option value="Telefónica">Telefónica</option>
+      </select>
+    </div>
+  </fieldset>
+
+  <p class="rounded-md border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-ivory/70">
+    <span class="font-semibold text-gold">Disponibilidad:</span>{" "}
+    Lunes a viernes de 9:00 a 18:00 h. <span class="text-stone">(Horarios provisionales — DATA_PENDING: confirmar con el despacho)</span>
+  </p>
+
+
   <div class="flex flex-col gap-1.5">
     <label for="cf-message" class="text-sm font-medium text-ivory">Mensaje</label>
     <textarea
@@ -110,6 +173,9 @@
     const name = (document.getElementById("cf-name") as HTMLInputElement).value.trim();
     const email = (document.getElementById("cf-email") as HTMLInputElement).value.trim();
     const message = (document.getElementById("cf-message") as HTMLTextAreaElement).value.trim();
+    const date = (document.getElementById("cf-date") as HTMLSelectElement).value;
+    const time = (document.getElementById("cf-time") as HTMLSelectElement).value;
+    const mode = (document.getElementById("cf-mode") as HTMLSelectElement).value;
 
     let valid = true;
     if (!name) {
@@ -141,7 +207,14 @@
     init({ publicKey });
 
     try {
-      await sendForm(serviceId, templateId, form, { name, email, message });
+      await sendForm(serviceId, templateId, form, {
+        name,
+        email,
+        message,
+        date,
+        time,
+        mode,
+      });
       showStatus("Mensaje enviado. Te contactaremos pronto.", "ok");
       form.reset();
     } catch (error) {
