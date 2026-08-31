@@ -1,0 +1,155 @@
+---
+---
+
+<form id="consult-form" class="space-y-4" novalidate>
+  <div class="flex flex-col gap-1.5">
+    <label for="cf-name" class="text-sm font-medium text-ivory">Nombre</label>
+    <input
+      id="cf-name"
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      placeholder="Tu nombre"
+      class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory placeholder:text-stone focus:border-gold focus:outline-none"
+    />
+    <p id="cf-name-err" class="hidden text-sm text-red-400" role="alert"></p>
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="cf-email" class="text-sm font-medium text-ivory">Correo electrónico</label>
+    <input
+      id="cf-email"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      placeholder="tucorreo@ejemplo.com"
+      class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory placeholder:text-stone focus:border-gold focus:outline-none"
+    />
+    <p id="cf-email-err" class="hidden text-sm text-red-400" role="alert"></p>
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="cf-phone" class="text-sm font-medium text-ivory">Teléfono</label>
+    <input
+      id="cf-phone"
+      name="phone"
+      type="tel"
+      autocomplete="tel"
+      placeholder="Tu teléfono"
+      class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory placeholder:text-stone focus:border-gold focus:outline-none"
+    />
+  </div>
+
+  <div class="flex flex-col gap-1.5">
+    <label for="cf-message" class="text-sm font-medium text-ivory">Mensaje</label>
+    <textarea
+      id="cf-message"
+      name="message"
+      rows="4"
+      required
+      placeholder="Cuéntanos tu caso"
+      class="rounded-md border border-white/20 bg-carbon px-4 py-3 text-ivory placeholder:text-stone focus:border-gold focus:outline-none"
+    ></textarea>
+    <p id="cf-message-err" class="hidden text-sm text-red-400" role="alert"></p>
+  </div>
+
+  <button
+    type="submit"
+    class="inline-flex w-full items-center justify-center rounded-md bg-gold px-6 py-3 font-semibold text-carbon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    Enviar consulta
+  </button>
+
+  <p id="cf-status" class="hidden text-sm" role="status"></p>
+  <p id="cf-fallback" class="hidden text-sm"></p>
+</form>
+
+<script>
+  const form = document.getElementById("consult-form") as HTMLFormElement;
+  const statusEl = document.getElementById("cf-status") as HTMLElement;
+  const fallbackEl = document.getElementById("cf-fallback") as HTMLElement;
+
+  // WhatsApp fallback deep link (matches links.ts: wa.me + URL-encoded prefill).
+  const whatsappUrl = (message: string) =>
+    `https://wa.me/527772402439?text=${encodeURIComponent(message)}`;
+
+  const showStatus = (message: string, kind: "ok" | "error") => {
+    statusEl.textContent = message;
+    statusEl.className = `text-sm ${kind === "ok" ? "text-emerald-400" : "text-red-400"}`;
+    statusEl.removeAttribute("hidden");
+  };
+
+  const showFieldError = (id: string, message: string) => {
+    const err = document.getElementById(id) as HTMLElement;
+    err.textContent = message;
+    err.classList.remove("hidden");
+  };
+
+  const clearFieldError = (id: string) => {
+    const err = document.getElementById(id) as HTMLElement;
+    err.textContent = "";
+    err.classList.add("hidden");
+  };
+
+  // Read runtime keys. When any is missing, the form fails closed.
+  const publicKey = import.meta.env.PUBLIC_EMAILJS_PUBLIC_KEY as string | undefined;
+  const serviceId = import.meta.env.PUBLIC_EMAILJS_SERVICE_ID as string | undefined;
+  const templateId = import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID as string | undefined;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    fallbackEl.classList.add("hidden");
+    fallbackEl.textContent = "";
+    statusEl.classList.add("hidden");
+    clearFieldError("cf-name-err");
+    clearFieldError("cf-email-err");
+    clearFieldError("cf-message-err");
+
+    const name = (document.getElementById("cf-name") as HTMLInputElement).value.trim();
+    const email = (document.getElementById("cf-email") as HTMLInputElement).value.trim();
+    const message = (document.getElementById("cf-message") as HTMLTextAreaElement).value.trim();
+
+    let valid = true;
+    if (!name) {
+      showFieldError("cf-name-err", "Por favor escribe tu nombre.");
+      valid = false;
+    }
+    if (!email) {
+      showFieldError("cf-email-err", "Por favor escribe tu correo electrónico.");
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showFieldError("cf-email-err", "Por favor escribe un correo válido.");
+      valid = false;
+    }
+    if (!message) {
+      showFieldError("cf-message-err", "Por favor escribe tu mensaje.");
+      valid = false;
+    }
+    if (!valid) return;
+
+    // Missing keys -> graceful Spanish failure with WhatsApp fallback.
+    if (!publicKey || !serviceId || !templateId) {
+      fallbackEl.innerHTML = `El formulario no está disponible en este momento. <a href="${whatsappUrl("Hola, quisiera enviar una consulta jurídica.")}" target="_blank" rel="noopener" class="text-gold underline">Escríbenos por WhatsApp.</a>`;
+      fallbackEl.classList.remove("hidden");
+      fallbackEl.className = "text-sm text-ivory/80";
+      return;
+    }
+
+    const { init, sendForm } = await import("@emailjs/browser");
+    init({ publicKey });
+
+    try {
+      await sendForm(serviceId, templateId, form, { name, email, message });
+      showStatus("Mensaje enviado. Te contactaremos pronto.", "ok");
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      fallbackEl.innerHTML = `El formulario no está disponible en este momento. <a href="${whatsappUrl("Hola, quisiera enviar una consulta jurídica.")}" target="_blank" rel="noopener" class="text-gold underline">Escríbenos por WhatsApp.</a>`;
+      fallbackEl.classList.remove("hidden");
+      fallbackEl.className = "text-sm text-ivory/80";
+    }
+  });
+</script>
+

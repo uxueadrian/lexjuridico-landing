@@ -1,0 +1,102 @@
+---
+import { waLink } from "../lib/links";
+import ContactForm from "./ContactForm.astro";
+---
+
+<section id="contacto" class="scroll-mt-16 bg-carbon py-20 sm:py-28" aria-label="Contacto">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid gap-12 lg:grid-cols-2">
+      <div>
+        <h2 class="text-3xl font-semibold text-ivory sm:text-4xl">Contacto</h2>
+        <p class="mt-4 text-ivory/75">
+          Escríbenos por WhatsApp, llama o envía tu consulta y te respondemos a
+          la brevedad.
+        </p>
+
+        <div class="mt-8 space-y-4">
+          <a
+            href={waLink("Hola, quisiera enviar un mensaje a Lexjuridico.")}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-2 rounded-md bg-gold px-6 py-3 font-semibold text-carbon transition-opacity hover:opacity-90"
+          >
+            Enviar mensaje por WhatsApp
+          </a>
+
+          <div class="space-y-2 text-ivory/80">
+            <p>
+              <a href="tel:+527772402439" class="transition-colors hover:text-gold">
+                +52 777 240 2439
+              </a>
+            </p>
+            <p>
+              <span class="text-stone">Correo:</span>{" "}
+              <span class="text-gold">DATA_PENDING</span>
+            </p>
+            <p>
+              <span class="text-stone">Dirección:</span>{" "}
+              <span class="text-ivory">Plaza de Armas, Centro, Cuernavaca, Morelos</span>{" "}
+              <span class="text-gold">(provisional)</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form column -->
+      <div>
+        <h3 class="text-xl font-semibold text-ivory">Envía tu consulta</h3>
+        <div class="mt-6 rounded-xl border border-white/10 bg-white/5 p-6">
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+
+    <!-- Mapa. OpenStreetMap embed: carga sin API key, sin cookies de terceros
+         y no es bloqueado por adblockers (a diferencia del iframe de Google Maps,
+         que en navegadores con bloqueo de terceros queda en blanco).
+         Markers: Zócalo de Cuernavaca (Plaza de Armas). Provisional. -->
+    <div class="mt-12">
+      <iframe
+        title="Mapa de ubicación — Zócalo de Cuernavaca"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-99.2390%2C18.9165%2C-99.2185%2C18.9275&layer=mapnik&marker=18.9220%2C-99.2287"
+        width="100%"
+        height="420"
+        style="border: 0; display: block; background: var(--color-carbon);"
+        loading="lazy"
+        class="rounded-xl border border-white/10"
+      ></iframe>
+      <p class="mt-4 text-center">
+        <span class="text-stone">Ubicación por defecto:</span>{" "}
+        <span class="text-ivory">Zócalo de Cuernavaca (Plaza de Armas)</span>{" "}
+        <span class="text-gold">— provisional</span>{" "}
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Z%C3%B3calo%20de%20Cuernavaca"
+          target="_blank"
+          rel="noopener"
+          class="text-gold underline transition-opacity hover:opacity-80"
+        >
+          · Cómo llegar
+        </a>
+      </p>
+    </div>
+
+    <!-- Conversión consolidada: la asesoría vive dentro de Contacto.
+         (Ya no existe una sección CTA separada — todo en contacto.) -->
+    <div class="mt-12 rounded-2xl border border-white/10 bg-white/5 px-6 py-12 text-center">
+      <h3 class="text-2xl font-semibold text-ivory sm:text-3xl">
+        ¿Necesitas asesoría legal?
+      </h3>
+      <p class="mt-3 text-lg text-ivory/75">
+        Cuéntanos tu caso y recibirás una respuesta rápida.
+      </p>
+      <a
+        href={waLink("Hola, necesito asesoría legal.")}
+        target="_blank"
+        rel="noopener"
+        class="mt-8 inline-flex items-center justify-center rounded-md bg-gold px-8 py-3.5 text-base font-semibold text-carbon transition-opacity hover:opacity-90"
+      >
+        Solicitar asesoría
+      </a>
+    </div>
+  </div>
+</section>
