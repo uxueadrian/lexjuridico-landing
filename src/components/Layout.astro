@@ -1,0 +1,85 @@
+---
+import { WHATSAPP_NUMBER } from "../lib/links";
+
+interface Props {
+  title?: string;
+  description?: string;
+  children?: any;
+}
+
+const {
+  title = "Lexjuridico Pineda & Asociados",
+  description =
+    "Asesoría jurídica profesional y cercana para personas y empresas. Derecho Civil, Derecho Mercantil y Demandas.",
+  children,
+} = Astro.props;
+
+// DATA_PENDING: domain confirmed later. Canonical/OG url swapped in one file.
+const SITE_URL_PENDING = "https://DATA_PENDING.example";
+
+const legalServiceJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  name: "Lexjuridico Pineda & Asociados",
+  telephone: "+52 777 240 2439",
+  url: SITE_URL_PENDING,
+  address: "Plaza de Armas, Centro, Cuernavaca, Morelos", // provisional
+  areaServed: "Cuernavaca, Morelos", // provisional
+});
+
+const faqItems = [
+  {
+    q: "¿Qué tipos de asuntos atienden?",
+    a: "Atendemos Derecho Civil, Derecho Mercantil y Demandas. DATA_PENDING: áreas adicionales.",
+  },
+  {
+    q: "¿Cómo solicito una asesoría?",
+    a: "Escríbenos por WhatsApp o envía el formulario de contacto y te responderemos a la brevedad.",
+  },
+  {
+    q: "¿Atienden a personas y a empresas?",
+    a: "Sí, brindamos asesoría tanto a personas físicas como a empresas.",
+  },
+  {
+    q: "¿Cuál es el costo de la primera consulta?",
+    a: "DATA_PENDING: costo no confirmado.",
+  },
+  {
+    q: "¿Dónde están ubicados?",
+    a: "Ubicación por defecto: Zócalo de Cuernavaca (Plaza de Armas), Cuernavaca, Morelos. Provisional.",
+  },
+];
+
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+});
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={SITE_URL_PENDING} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={SITE_URL_PENDING} />
+
+    <script type="application/ld+json" set:html={legalServiceJsonLd} />
+    <script type="application/ld+json" set:html={faqJsonLd} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
