@@ -1,69 +1,539 @@
 ---
-import { waLink } from "../lib/links";
-import Reveal from "./Reveal.astro";
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: "Inicio", href: "#inicio" },
+  { label: "Servicios", href: "#servicios" },
+  { label: "Nosotros", href: "#nosotros" },
+  { label: "Contacto", href: "#contacto" },
+];
 ---
+<section id="inicio" class="hero-shell" aria-label="Presentación">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="hero-image" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
 
-<section
-  id="inicio"
-  class="relative flex min-h-[88vh] items-center overflow-hidden bg-carbon"
-  aria-label="Presentación"
->
-  <!-- Background: Statue of Lady Justice. Decorative, not semantic. -->
-  <div
-    aria-hidden="true"
-    class="absolute inset-0"
-    style="background-image: url('/justicia.jpg'); background-size: cover; background-position: 70% 20%;"
-  ></div>
+  <!-- Hero-local header (replica del diseño de referencia). -->
+  <header class="site-header">
+    <a class="brand" href="#inicio" aria-label="Lexjuridico Pineda y Asociados, inicio">
+      <span class="brand-mark">LP</span>
+      <span class="brand-name">
+        Lexjuridico <b>Pineda</b>
+        <em>&amp; Asociados</em>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Navegación principal">
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a
+        class="nav-cta"
+        href="https://wa.me/527772402439?text=Hola%2C%20quisiera%20contactar%20con%20Lexjuridico%20Pineda%20%26%20Asociados."
+        target="_blank"
+        rel="noreferrer"
+      >
+        Contactar por WhatsApp <span>↗</span>
+      </a>
+    </nav>
+  </header>
 
-  <!-- Legibility overlay: carbon fade, stronger on the text side. -->
-  <div
-    aria-hidden="true"
-    class="absolute inset-0 bg-gradient-to-r from-carbon via-carbon/80 to-carbon/30"
-  ></div>
-  <!-- Contact dark fade from below into next section. -->
-  <div
-    aria-hidden="true"
-    class="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-carbon to-transparent"
-  ></div>
-
-  <div class="relative mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
-    <div class="max-w-2xl">
-      <Reveal>
-        <p class="text-sm font-medium uppercase tracking-[0.2em] text-gold">
-          Lexjuridico Pineda &amp; Asociados
-        </p>
-      </Reveal>
-
-      <Reveal delay={80}>
-        <h1 class="mt-5 text-4xl font-semibold leading-tight text-ivory sm:text-5xl md:text-6xl">
-          Defendemos tus derechos con experiencia y compromiso
-        </h1>
-      </Reveal>
-
-      <Reveal delay={160}>
-        <p class="mt-6 max-w-xl text-lg text-ivory/85">
-          Asesoría jurídica profesional y cercana para personas físicas y morales
-        </p>
-      </Reveal>
-
-      <Reveal delay={240}>
-        <div class="mt-10 flex flex-col items-start gap-4 sm:flex-row">
-          <a
-            href={waLink("Hola, quisiera solicitar una asesoría jurídica.")}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center justify-center rounded-md bg-gold px-7 py-3.5 text-base font-semibold text-carbon transition-opacity hover:opacity-90"
-          >
-            Contactar por WhatsApp
-          </a>
-          <a
-            href="#servicios"
-            class="inline-flex items-center justify-center rounded-md border border-ivory/25 px-7 py-3.5 text-base font-semibold text-ivory transition-colors hover:border-gold hover:text-gold"
-          >
-            Conoce nuestros servicios
-          </a>
-        </div>
-      </Reveal>
+  <section class="hero-content" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow"><span></span> Despacho Jurídico · Cuernavaca, Morelos</p>
+      <h1 id="hero-title">
+        Defendemos tus derechos <i>con firmeza</i> y experiencia
+      </h1>
+      <p class="hero-description">
+        Somos un despacho de abogados comprometido con la defensa y asesoría de
+        personas físicas y morales en Cuernavaca, Morelos. Trato cercano y
+        estrategia legal sólida en cada caso.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-gold" href="#contacto">
+          Cuéntanos tu caso <span>↗</span>
+        </a>
+        <a class="button button-quiet" href="#servicios">
+          Conoce mi despacho <span>→</span>
+        </a>
+      </div>
+      <div class="trust-list" aria-label="Valores del despacho">
+        <span>Atención personalizada</span>
+        <span>Estrategia sólida</span>
+        <span>Confidencialidad total</span>
+      </div>
     </div>
-  </div>
+
+    <div class="justice-seal" aria-hidden="true">
+      <div class="seal-ring seal-ring-outer"></div>
+      <div class="seal-ring seal-ring-inner"></div>
+      <div class="seal-center">
+        <span>LP</span>
+        <small>LEX<br />JURIDICO</small>
+      </div>
+      <div class="seal-orbit seal-orbit-a"></div>
+      <div class="seal-orbit seal-orbit-b"></div>
+      <div class="seal-label">Justicia · Integridad · Defensa</div>
+    </div>
+  </section>
+
+  <footer class="hero-footer">
+    <span>© {new Date().getFullYear()} Lexjuridico Pineda &amp; Asociados</span>
+    <span>Scroll para descubrir <b>↓</b></span>
+  </footer>
 </section>
+
+<style>
+  .hero-shell {
+    min-height: 100svh;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: #252523;
+  }
+
+  .grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.13;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0 0 0 42%;
+    z-index: -2;
+    background-image: url("/justice-hero.png");
+    background-position: center;
+    background-size: cover;
+    filter: saturate(0.62) contrast(1.08);
+    opacity: 0.8;
+  }
+
+  .hero-vignette {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(
+        90deg,
+        #252523 0%,
+        rgba(37, 37, 35, 0.97) 34%,
+        rgba(37, 37, 35, 0.56) 67%,
+        rgba(37, 37, 35, 0.2) 100%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(37, 37, 35, 0.78),
+        transparent 34%,
+        rgba(37, 37, 35, 0.35)
+      );
+  }
+
+  .site-header,
+  .hero-content,
+  .hero-footer {
+    width: min(1180px, calc(100% - 64px));
+    margin: auto;
+  }
+
+  .site-header {
+    min-height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 5;
+    animation: reveal 0.8s ease both;
+  }
+
+  .brand {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid #c6a66b;
+    border-radius: 50%;
+    color: #c6a66b;
+    font: 600 11px 'Playfair Display', serif;
+    letter-spacing: -0.08em;
+  }
+
+  .brand-name {
+    font: 500 14px 'Playfair Display', serif;
+    letter-spacing: 0.015em;
+  }
+
+  .brand-name b {
+    font-weight: 700;
+  }
+
+  .brand-name em {
+    display: block;
+    color: #c6a66b;
+    font: 9px 'DM Sans', sans-serif;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-style: normal;
+    margin-top: 2px;
+  }
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    gap: 31px;
+  }
+
+  .main-nav a {
+    color: #cfc9bd;
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.25s;
+  }
+
+  .main-nav a:hover {
+    color: #c6a66b;
+  }
+
+  .nav-cta {
+    border: 1px solid rgba(198, 166, 107, 0.7);
+    padding: 13px 17px;
+    color: #e8d6ac;
+  }
+
+  .nav-cta span,
+  .button span {
+    margin-left: 8px;
+    color: #c6a66b;
+  }
+
+  .hero-content {
+    min-height: calc(100svh - 150px);
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+    padding: 55px 0 95px;
+  }
+
+  .hero-copy {
+    width: min(610px, 100%);
+    animation: rise 0.9s 0.15s ease both;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    color: #c6a66b;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow span {
+    width: 28px;
+    height: 1px;
+    background: #c6a66b;
+  }
+
+  h1 {
+    max-width: 650px;
+    margin: 24px 0 22px;
+    font: 500 clamp(3.2rem, 6.7vw, 6.3rem) / 0.98 'Playfair Display', serif;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+    color: #eee9de;
+  }
+
+  h1 i {
+    color: #c6a66b;
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .hero-description {
+    max-width: 490px;
+    color: #bbb5aa;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 35px;
+  }
+
+  .button {
+    text-decoration: none;
+    font-size: 12px;
+    transition:
+      transform 0.25s,
+      background 0.25s;
+  }
+
+  .button:hover {
+    transform: translateY(-3px);
+  }
+
+  .button-gold {
+    padding: 16px 20px;
+    color: #262522;
+    background: #c6a66b;
+  }
+
+  .button-gold span {
+    color: #262522;
+  }
+
+  .button-quiet {
+    color: #ddd5c8;
+    border-bottom: 1px solid #8f877b;
+    padding-bottom: 7px;
+  }
+
+  .trust-list {
+    display: flex;
+    gap: 24px;
+    margin-top: 58px;
+    color: #aaa398;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .trust-list span::before {
+    content: "—";
+    color: #c6a66b;
+    margin-right: 8px;
+  }
+
+  .justice-seal {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    width: min(31vw, 390px);
+    aspect-ratio: 1;
+    transform: translateY(-49%);
+    animation: float 7s ease-in-out infinite;
+    opacity: 0.94;
+  }
+
+  .seal-ring {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(198, 166, 107, 0.42);
+    border-radius: 50%;
+  }
+
+  .seal-ring-inner {
+    inset: 9%;
+    border-color: rgba(221, 213, 200, 0.2);
+  }
+
+  .seal-center {
+    position: absolute;
+    inset: 27%;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    border: 1px solid rgba(198, 166, 107, 0.75);
+    border-radius: 50%;
+    background: rgba(37, 37, 35, 0.25);
+  }
+
+  .seal-center span {
+    color: #d8ba7b;
+    font: 600 clamp(3rem, 7vw, 5rem) 'Playfair Display', serif;
+    letter-spacing: -0.1em;
+  }
+
+  .seal-center small {
+    color: #c6a66b;
+    text-align: center;
+    font-size: 7px;
+    letter-spacing: 0.25em;
+    line-height: 1.5;
+  }
+
+  .seal-orbit {
+    position: absolute;
+    inset: 17%;
+    border: 1px dashed rgba(198, 166, 107, 0.45);
+    border-radius: 50%;
+    animation: spin 24s linear infinite;
+  }
+
+  .seal-orbit::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #c6a66b;
+    top: 2%;
+    left: 50%;
+    box-shadow: 0 0 16px #c6a66b;
+  }
+
+  .seal-orbit-b {
+    inset: 3%;
+    transform: rotate(65deg);
+    animation-direction: reverse;
+    opacity: 0.5;
+  }
+
+  .seal-label {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    text-align: center;
+    color: #c6a66b;
+    font-size: 8px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .hero-footer {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+    color: #88847c;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-footer b {
+    color: #c6a66b;
+    font-size: 14px;
+    margin-left: 7px;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      margin-top: 0;
+    }
+    50% {
+      margin-top: -13px;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .site-header,
+    .hero-content,
+    .hero-footer {
+      width: min(100% - 40px, 560px);
+    }
+
+    .site-header {
+      min-height: 78px;
+    }
+
+    .hero-image {
+      inset: 28% 0 0;
+      opacity: 0.55;
+    }
+
+    .hero-vignette {
+      background: linear-gradient(
+        180deg,
+        #252523 0%,
+        rgba(37, 37, 35, 0.86) 47%,
+        rgba(37, 37, 35, 0.28) 100%
+      );
+    }
+
+    .hero-content {
+      min-height: calc(100svh - 100px);
+      align-items: flex-start;
+      padding-top: 11vh;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 14vw, 5rem);
+    }
+
+    .hero-description {
+      font-size: 13px;
+    }
+
+    .trust-list {
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 40px;
+    }
+
+    .justice-seal {
+      width: 220px;
+      right: -35px;
+      top: auto;
+      bottom: 54px;
+      opacity: 0.54;
+    }
+
+    .hero-footer {
+      bottom: 17px;
+    }
+
+    .hero-footer span:last-child {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
