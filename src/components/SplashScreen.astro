@@ -1,0 +1,90 @@
+---
+// Pantalla de bienvenida: muestra el logo ~2s, luego se achica, sube y deja
+// descubrir el contenido detrás.
+---
+
+<div class="splash" aria-hidden="true">
+  <img src="/logo.jpg" alt="" width="320" height="320" />
+</div>
+
+<style>
+  .splash {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    background: #252523;
+    /* Fondo con un filo dorado muy sutil para mantener la estética de marca. */
+    background:
+      radial-gradient(120% 90% at 50% 8%, rgba(198, 166, 107, 0.14), transparent 55%),
+      #252523;
+    overflow: hidden;
+    opacity: 1;
+    transition:
+      opacity 0.55s ease 0.05s,
+      visibility 0s linear 0.6s;
+    visibility: visible;
+  }
+
+  .splash img {
+    width: min(62vw, 320px);
+    height: auto;
+    object-fit: contain;
+    animation: splash-logo-in 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  /* Estado de salida: el logo se achica y sube mientras el overlay se desvanece. */
+  .splash--out img {
+    animation: splash-logo-out 0.55s cubic-bezier(0.55, 0.06, 0.68, 0.19) both;
+  }
+
+  .splash--out {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Ya no existe visualmente: no bloquea clicks ni scroll. */
+  .splash--done {
+    display: none;
+  }
+
+  @keyframes splash-logo-in {
+    from {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes splash-logo-out {
+    from {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-90px) scale(0.45);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .splash {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const splash = document.querySelector(".splash");
+  if (splash) {
+    const OUT_AFTER = 2000; // 2s mostrando el logo.
+    const GONE_AFTER = OUT_AFTER + 600;
+
+    setTimeout(() => splash.classList.add("splash--out"), OUT_AFTER);
+    setTimeout(() => splash.classList.add("splash--done"), GONE_AFTER);
+  }
+</script>
