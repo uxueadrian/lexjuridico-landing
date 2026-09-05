@@ -11,14 +11,20 @@
  */
 interface Props {
   delay?: number;
+  variant?: "up" | "blur" | "left" | "right" | "zoom";
   class?: string;
   children?: any;
 }
 
-const { delay = 0, class: className = "" } = Astro.props;
+const { delay = 0, variant = "up", class: className = "" } = Astro.props;
+const variantClass = variant === "up" ? "" : `reveal-${variant}`;
 ---
 
-<div class:list={["reveal", className]} data-reveal data-reveal-delay={delay}>
+<div
+  class:list={["reveal", variantClass, className]}
+  data-reveal
+  data-reveal-delay={delay}
+>
   <slot />
 </div>
 

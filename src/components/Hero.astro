@@ -623,4 +623,38 @@ const navItems: NavItem[] = [
   nav?.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => setOpen(false));
   });
+
+  // Parallax de scroll: la imagen se mueve más lento que el viewport y el
+  // contenido del hero se desvanece hacia arriba mientras haces scroll.
+  const heroShell = document.querySelector(".hero-shell") as HTMLElement;
+  const img = document.querySelector(".hero-image") as HTMLElement;
+  const content = document.querySelector(".hero-content") as HTMLElement;
+
+  if (heroShell && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const limit = heroShell.offsetHeight;
+        const progress = Math.min(y / limit, 1);
+
+        if (img) {
+          // Imagen en parallax: se desplaza despacio hacia abajo.
+          img.style.transform = `translateY(${y * 0.22}px) scale(1.08)`;
+          img.style.opacity = String(0.8 - progress * 0.35);
+        }
+        if (content) {
+          content.style.transform = `translateY(${y * 0.16}px)`;
+          content.style.opacity = String(1 - progress * 1.15);
+        }
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
 </script>

@@ -17,7 +17,7 @@ import Reveal from "./Reveal.astro";
 
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <!-- Columna editorial: datos de contacto -->
-      <Reveal>
+      <Reveal variant="left">
         <div>
           <p class="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             <span aria-hidden="true" class="h-px w-8 bg-gold/70"></span>
@@ -79,7 +79,7 @@ import Reveal from "./Reveal.astro";
       </Reveal>
 
       <!-- Form column -->
-      <Reveal delay={100}>
+      <Reveal variant="right" delay={120}>
         <div>
           <h3 class="display text-2xl leading-snug text-ivory">Envía tu consulta</h3>
           <div class="mt-8">
@@ -119,7 +119,7 @@ import Reveal from "./Reveal.astro";
 
     <!-- Conversión consolidada: la asesoría vive dentro de Contacto.
          (Ya no existe una sección CTA separada — todo en contacto.) -->
-    <Reveal delay={120}>
+    <Reveal variant="zoom" delay={160}>
       <div class="mt-24 text-center">
         <div
           aria-hidden="true"

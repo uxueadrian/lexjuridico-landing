@@ -27,7 +27,7 @@ const steps = [
       class="mb-14 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
     ></div>
 
-    <Reveal>
+    <Reveal variant="blur">
       <div class="max-w-2xl">
         <h2 class="display text-3xl leading-tight text-ivory sm:text-4xl">
           Nuestro <span class="text-gold">proceso</span>
@@ -38,7 +38,7 @@ const steps = [
     <!-- Pasos: fila editorial numerada, hairline conectora -->
     <div class="mt-12 grid gap-10 md:mt-16 md:grid-cols-3 md:gap-8">
       {steps.map((step, index) => (
-        <Reveal delay={index * 80}>
+        <Reveal variant="zoom" delay={index * 120}>
           <div class="border-t border-gold/10 pt-8">
             <span class="display text-4xl italic text-gold/40 md:text-5xl">
               {step.number}

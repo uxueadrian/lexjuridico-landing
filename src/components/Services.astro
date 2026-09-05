@@ -63,7 +63,10 @@ const services = [
         const Icon = s.icon;
         const isEven = i % 2 === 0;
         return (
-          <Reveal delay={i * 120}>
+          <Reveal
+          variant={isEven ? "left" : "right"}
+          delay={i * 120}
+        >
             <div class={`group flex flex-col items-start gap-8 sm:flex-row sm:items-center sm:gap-16 ${isEven ? '' : 'sm:flex-row-reverse'}`}>
               <!-- Number + Icon -->
               <div class="flex shrink-0 flex-col items-center gap-4">

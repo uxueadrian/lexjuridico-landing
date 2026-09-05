@@ -32,7 +32,7 @@ const faqs = [
       class="mb-14 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
     ></div>
 
-    <Reveal>
+    <Reveal variant="blur">
       <div class="max-w-2xl">
         <h2 class="display text-3xl leading-tight text-ivory sm:text-4xl">
           Preguntas frecuentes
@@ -43,7 +43,7 @@ const faqs = [
     <!-- Accordion nativo: solo apariencia editorial, sin cajas -->
     <div class="mt-10">
       {faqs.map((faq, index) => (
-        <Reveal delay={index * 60}>
+        <Reveal variant={index % 2 === 0 ? "left" : "right"} delay={index * 60}>
           <details
             class="group border-b border-gold/10"
             id={`faq-${index}`}

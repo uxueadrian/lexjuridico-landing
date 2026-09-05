@@ -37,7 +37,7 @@ const items = [
       class="mb-14 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
     ></div>
 
-    <Reveal>
+    <Reveal variant="blur">
       <div class="max-w-2xl">
         <p class="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
           <span aria-hidden="true" class="h-px w-8 bg-gold/70"></span>
@@ -53,8 +53,9 @@ const items = [
     <div class="mt-14 grid gap-x-8 gap-y-0 md:grid-cols-2">
       {items.map((item, index) => {
         const Icon = item.icon;
+        const variant = index % 2 === 0 ? "left" : "right";
         return (
-          <Reveal delay={index * 80}>
+          <Reveal variant={variant} delay={index * 80}>
             <div class="flex gap-5 border-b border-gold/10 py-8">
               <span class="display text-2xl italic text-gold/40">
                 {item.number}
