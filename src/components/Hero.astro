@@ -25,7 +25,16 @@ const navItems: NavItem[] = [
         <em>&amp; Asociados</em>
       </span>
     </a>
-    <nav class="main-nav" aria-label="Navegación principal">
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="main-nav"
+      aria-label="Abrir menú"
+    >
+      <span></span><span></span>
+    </button>
+    <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
       {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
       <a
         class="nav-cta"
@@ -203,6 +212,13 @@ const navItems: NavItem[] = [
 
   .main-nav a:hover {
     color: #c6a66b;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
   }
 
   .nav-cta {
@@ -475,6 +491,47 @@ const navItems: NavItem[] = [
       min-height: 78px;
     }
 
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px 0 10px 10px;
+    }
+
+    .menu-toggle span {
+      width: 24px;
+      height: 1px;
+      background: #c6a66b;
+      transition: transform 0.25s;
+    }
+
+    .main-nav {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      left: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 15px;
+      background: rgba(37, 37, 35, 0.98);
+      border: 1px solid rgba(198, 166, 107, 0.3);
+    }
+
+    .main-nav.is-open {
+      display: flex;
+    }
+
+    .main-nav a {
+      padding: 14px 8px;
+    }
+
+    .nav-cta {
+      margin-top: 8px;
+      text-align: center;
+    }
+
     .hero-image {
       inset: 28% 0 0;
       opacity: 0.55;
@@ -495,12 +552,35 @@ const navItems: NavItem[] = [
       padding-top: 11vh;
     }
 
+    .eyebrow {
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      gap: 9px;
+      white-space: nowrap;
+    }
+
     h1 {
       font-size: clamp(3.1rem, 14vw, 5rem);
     }
 
     .hero-description {
       font-size: 13px;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: block;
+      text-align: center;
+    }
+
+    .button-gold {
+      padding: 16px 20px;
     }
 
     .trust-list {
@@ -519,6 +599,8 @@ const navItems: NavItem[] = [
 
     .hero-footer {
       bottom: 17px;
+      font-size: 8px;
+      letter-spacing: 0.06em;
     }
 
     .hero-footer span:last-child {
@@ -537,3 +619,24 @@ const navItems: NavItem[] = [
     }
   }
 </style>
+
+<script>
+  // Menú móvil: toggle de la hamburguesa. Solo visible en pantallas <= 760px.
+  const toggle = document.querySelector(".menu-toggle") as HTMLButtonElement;
+  const nav = document.querySelector(".main-nav") as HTMLElement;
+
+  const setOpen = (open: boolean) => {
+    toggle?.setAttribute("aria-expanded", String(open));
+    nav?.classList.toggle("is-open", open);
+  };
+
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") === "true";
+    setOpen(!open);
+  });
+
+  // Cerrar al activar un enlace del menú.
+  nav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+</script>
