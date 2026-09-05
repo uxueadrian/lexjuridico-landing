@@ -1,5 +1,6 @@
 ---
 import { WHATSAPP_NUMBER, waLink } from "../lib/links";
+import WhatsAppFloat from "./WhatsAppFloat.astro";
 
 interface Props {
   title?: string;
@@ -126,5 +127,6 @@ const faqJsonLd = JSON.stringify({
   </head>
   <body>
     <slot />
+    <WhatsAppFloat />
   </body>
 </html>
