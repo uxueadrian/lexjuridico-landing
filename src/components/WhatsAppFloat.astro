@@ -43,11 +43,12 @@ import { waLink } from "../lib/links";
     border-radius: 50%;
     background: #25d366;
     color: #ffffff;
+    /* Recorta cualquier animación: nada sale del contorno. */
+    overflow: hidden;
     box-shadow:
       0 10px 24px -6px rgba(37, 211, 102, 0.55),
       0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.25s ease;
-    animation: wa-float-bob 3.2s ease-in-out infinite;
   }
 
   .wa-float:hover .wa-float-btn {
@@ -58,12 +59,13 @@ import { waLink } from "../lib/links";
     transform: scale(0.95);
   }
 
-  /* Ondas de pulso (estilo burbuja WhatsApp). */
+  /* Anillo de pulso: crece desde el centro hasta el contorno exacto de la
+     burbuja y se desvanece. Nunca sale del borde (overflow: hidden + escala máxima 1). */
   .wa-float-pulse {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    background: rgba(37, 211, 102, 0.45);
+    border: 3px solid rgba(255, 255, 255, 0.55);
     animation: wa-float-pulse 2.4s ease-out infinite;
     pointer-events: none;
   }
@@ -109,24 +111,14 @@ import { waLink } from "../lib/links";
     }
   }
 
-  @keyframes wa-float-bob {
-    0%,
-    100% {
-      margin-top: 0;
-    }
-    50% {
-      margin-top: -6px;
-    }
-  }
-
   @keyframes wa-float-pulse {
     0% {
-      transform: scale(1);
-      opacity: 0.7;
+      transform: scale(0.55);
+      opacity: 0.9;
     }
-    80%,
+    70%,
     100% {
-      transform: scale(1.7);
+      transform: scale(1);
       opacity: 0;
     }
   }
@@ -149,7 +141,6 @@ import { waLink } from "../lib/links";
 
   @media (prefers-reduced-motion: reduce) {
     .wa-float,
-    .wa-float-btn,
     .wa-float-pulse {
       animation: none;
     }
