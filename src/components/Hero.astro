@@ -244,6 +244,8 @@ const navItems: NavItem[] = [
 
   .hero-copy {
     width: min(610px, 100%);
+    position: relative;
+    z-index: 4;
     animation: rise 0.9s 0.15s ease both;
   }
 
@@ -345,6 +347,8 @@ const navItems: NavItem[] = [
     transform: translateY(-49%);
     animation: float 7s ease-in-out infinite;
     opacity: 0.94;
+    /* Decorativo: nunca debe capturar clicks ni bloquear los botones. */
+    pointer-events: none;
   }
 
   .seal-ring {
