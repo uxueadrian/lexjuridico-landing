@@ -55,6 +55,61 @@
     transform 0.6s ease;
 }
 
+/* ── Premium visual utilities ─────────────────────────────────── */
+
+/* Grain texture overlay — adds depth to any section. */
+.premium-grain {
+  position: relative;
+}
+.premium-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Ambient gold glow — soft radial glow behind content. */
+.premium-glow {
+  position: relative;
+}
+.premium-glow::after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 600px;
+  height: 400px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(184, 149, 62, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Floating decorative ring — animated accent for section corners. */
+.premium-orb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 149, 62, 0.15);
+  pointer-events: none;
+  animation: orb-drift 12s ease-in-out infinite;
+}
+@keyframes orb-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+  50% { transform: translateY(-12px) rotate(180deg); opacity: 0.6; }
+}
+
+/* Section divider — gold hairline between sections. */
+.section-divider {
+  width: 80px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(to right, transparent, var(--color-gold), transparent);
+  opacity: 0.5;
+}
+
 /* ── Hide scrollbars while keeping scroll (mobile menu, carousel) ── */
 .scrollbar-hide {
   -ms-overflow-style: none;

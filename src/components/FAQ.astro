@@ -4,7 +4,7 @@ import Reveal from "./Reveal.astro";
 const faqs = [
   {
     q: "¿Qué tipos de asuntos atienden?",
-    a: "Atendemos Derecho Civil, Derecho Mercantil y Demandas. <span class=\"text-gold\">DATA_PENDING:</span> áreas adicionales.",
+    a: "Atendemos Derecho Civil, Familiar y Sucesorio, Laboral, Mercantil y Demandas y Juicios, tanto para personas físicas como morales.",
   },
   {
     q: "¿Cómo solicito una asesoría?",
@@ -16,46 +16,53 @@ const faqs = [
   },
   {
     q: "¿Cuál es el costo de la primera consulta?",
-    a: "<span class=\"text-gold\">DATA_PENDING:</span> costo no confirmado.",
+    a: "La primera consulta es el momento de conocer tu caso. Escríbenos y te informamos el costo según el tipo de asunto.",
   },
   {
     q: "¿Dónde están ubicados?",
-    a: "Ubicación por defecto: Zócalo de Cuernavaca (Plaza de Armas), Cuernavaca, Morelos. <span class=\"text-gold\">Provisional.</span>",
+    a: "Estamos en Plaza de Armas, Centro, Cuernavaca, Morelos. Escríbenos para coordinar una cita.",
   },
 ];
 ---
 
-<section class="bg-carbon py-20 sm:py-28" aria-label="Preguntas frecuentes">
-  <div class="mx-auto max-w-3xl px-6">
+<section   class="bg-[#252523] py-20 sm:py-28" aria-label="Preguntas frecuentes">
+  <div class="mx-auto max-w-6xl px-6">
+    <div
+      aria-hidden="true"
+      class="mb-14 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+    ></div>
+
     <Reveal>
-      <h2 class="text-center text-3xl font-semibold text-ivory sm:text-4xl">
-        Preguntas frecuentes
-      </h2>
+      <div class="max-w-2xl">
+        <h2 class="display text-3xl leading-tight text-ivory sm:text-4xl">
+          Preguntas frecuentes
+        </h2>
+      </div>
     </Reveal>
 
-    <div class="mt-12 space-y-4">
+    <!-- Accordion nativo: solo apariencia editorial, sin cajas -->
+    <div class="mt-10">
       {faqs.map((faq, index) => (
         <Reveal delay={index * 60}>
           <details
-            class="group rounded-xl border border-white/10 bg-white/5"
+            class="group border-b border-gold/10"
             id={`faq-${index}`}
           >
             <summary
-              class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-left font-semibold text-ivory [&::-webkit-details-marker]:hidden"
+              class="flex cursor-pointer list-none items-center justify-between gap-4 py-6 text-left [&::-webkit-details-marker]:hidden"
             >
-              <span>{faq.q}</span>
+              <span class="display text-lg leading-snug text-ivory md:text-xl">
+                {faq.q}
+              </span>
               <span
                 aria-hidden="true"
-                class="shrink-0 text-gold transition-transform group-open:rotate-45"
+                class="shrink-0 text-2xl font-light leading-none text-gold transition-transform duration-300 group-open:rotate-45"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                +
               </span>
             </summary>
             <div
-              class="px-5 pb-5 text-ivory/80"
+              class="pb-6 pr-8 leading-relaxed text-ivory/70 md:pr-20"
               set:html={faq.a}
             ></div>
           </details>
@@ -64,6 +71,12 @@ const faqs = [
     </div>
   </div>
 </section>
+
+<style>
+  .display {
+    font-family: "Playfair Display", serif;
+  }
+</style>
 
 <script>
   // Reflecting native `details` state into aria for enhanced accessibility.

@@ -3,39 +3,63 @@ import { waLink } from "../lib/links";
 import Reveal from "./Reveal.astro";
 ---
 
-<section id="nosotros" class="scroll-mt-16 bg-carbon py-20 sm:py-28" aria-label="Sobre nosotros">
-  <div class="mx-auto max-w-3xl px-6 text-center">
-    <Reveal>
-      <h2 class="text-3xl font-semibold text-ivory sm:text-4xl">
-        Sobre nosotros
-      </h2>
-    </Reveal>
+<section
+  id="nosotros"
+  class="scroll-mt-16 bg-[#252523] py-20 sm:py-28"
+  aria-label="Sobre nosotros"
+>
+  <div class="mx-auto max-w-6xl px-6">
+    <div
+      aria-hidden="true"
+      class="mb-14 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+    ></div>
 
-    <Reveal delay={80}>
-      <p class="mt-6 text-lg leading-relaxed text-ivory/80">
-        En Lexjuridico Pineda &amp; Asociados acompañamos a personas físicas y morales
-        con una visión cercana y profesional del derecho. Nos dedicamos con
-        seriedad y compromiso a proteger tus intereses y a brindarte la certeza
-        que necesitas en cada decisión legal.
-      </p>
-    </Reveal>
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+      <Reveal>
+        <div>
+          <p class="flex items-center gap-3 text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
+            <span aria-hidden="true" class="h-px w-8 bg-gold/70"></span>
+            Sobre nosotros
+          </p>
+          <h2 class="display mt-5 max-w-md text-3xl leading-tight text-ivory sm:text-4xl">
+            Un despacho cercano con
+            <span class="text-gold">estrategia seria</span>
+          </h2>
+        </div>
+      </Reveal>
 
-    <!-- DATA_PENDING: photos and biography swap in here (no structural change) -->
-    <Reveal delay={140}>
-      <p class="mt-6 text-sm text-stone">
-        DATA_PENDING: fotos y semblanza
-      </p>
-    </Reveal>
-
-    <Reveal delay={200}>
-      <a
-        href={waLink("Hola, me gustaría hablar con un abogado.")}
-        target="_blank"
-        rel="noopener"
-        class="mt-8 inline-flex items-center justify-center rounded-md bg-gold px-6 py-3 text-sm font-semibold text-carbon transition-opacity hover:opacity-90"
-      >
-        Hablar con un abogado
-      </a>
-    </Reveal>
+      <Reveal delay={100}>
+        <div class="flex h-full flex-col items-start">
+          <p class="leading-relaxed text-ivory/75">
+            En Lexjuridico Pineda &amp; Asociados acompañamos a personas físicas
+            y morales con una visión cercana y profesional del derecho. Escuchamos
+            primero, entendemos después y actuamos con la estrategia que cada caso
+            merece.
+          </p>
+          <p class="mt-5 leading-relaxed text-ivory/75">
+            Nos dedicamos con seriedad y compromiso a proteger tus intereses y a
+            brindarte la certeza que necesitas en cada decisión legal. Trato
+            directo: hablas con quien lleva tu caso.
+          </p>
+          <div class="mt-9">
+            <a
+              href={waLink("Hola, me gustaría hablar con un abogado.")}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center gap-2 rounded-full bg-gold px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-carbon transition hover:bg-gold/90 hover:shadow-[0_0_28px_rgba(184,149,62,0.35)]"
+            >
+              Hablar con un abogado
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </Reveal>
+    </div>
   </div>
 </section>
+
+<style>
+  .display {
+    font-family: "Playfair Display", serif;
+  }
+</style>

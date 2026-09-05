@@ -1,0 +1,190 @@
+---
+import Reveal from "./Reveal.astro";
+---
+
+<section
+  id="verdad"
+  class="scroll-mt-16 relative overflow-hidden bg-[#252523] py-28 sm:py-36 premium-grain premium-glow"
+  aria-label="La verdad incómoda"
+>
+  <!-- Decorative orb -->
+  <div
+    aria-hidden="true"
+    class="premium-orb -right-16 top-12 h-[220px] w-[220px] opacity-40"
+    style="animation-delay: -3s"
+  ></div>
+  <div
+    aria-hidden="true"
+    class="premium-orb -left-10 bottom-16 h-[160px] w-[160px] opacity-30"
+    style="animation-delay: -7s; animation-duration: 15s"
+  ></div>
+
+  <div class="relative z-10 mx-auto max-w-6xl px-6">
+    <!-- Eyebrow -->
+    <Reveal>
+      <div class="text-center">
+        <div class="section-divider mb-8" aria-hidden="true"></div>
+        <p
+          class="text-xs font-semibold uppercase tracking-[0.32em] text-gold/80"
+        >
+          La verdad incómoda
+        </p>
+      </div>
+    </Reveal>
+
+    <!-- Title -->
+    <Reveal delay={80}>
+      <h2
+        class="mt-6 max-w-4xl text-center text-4xl font-medium leading-[1.15] text-ivory sm:text-5xl"
+        style="font-family: 'Playfair Display', serif"
+      >
+        Tus problemas legales <br class="hidden sm:block" />
+        <span class="italic text-gold">no se arreglan con el tiempo.</span>
+      </h2>
+    </Reveal>
+
+    <!-- Subtitle -->
+    <Reveal delay={140}>
+      <p
+        class="mx-auto mt-8 max-w-xl text-center text-lg leading-relaxed text-ivory/55"
+        style="font-family: 'DM Sans', sans-serif"
+      >
+        Llegan cuando menos los esperas. Y mientras tanto, la situación solo empeora.
+      </p>
+    </Reveal>
+
+    <!-- Four truths — dramatic large-text layout -->
+    <div class="mt-20 space-y-0">
+      <Reveal delay={0}>
+        <div
+          class="group border-t border-gold/10 py-10 transition-colors duration-500 hover:border-gold/30"
+        >
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-8">
+            <span
+              class="text-6xl font-light italic text-gold/20 transition-colors duration-500 group-hover:text-gold/50 sm:text-7xl"
+              style="font-family: 'Playfair Display', serif"
+            >
+              01
+            </span>
+            <div>
+              <h3
+                class="text-2xl font-medium text-ivory sm:text-3xl"
+                style="font-family: 'Playfair Display', serif"
+              >
+                Un contrato mal firmado
+              </h3>
+              <p class="mt-2 max-w-lg text-base text-ivory/50">
+                Lo firmaste confiando. Hoy las letras chicas te juegan en contra.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={60}>
+        <div
+          class="group border-t border-gold/10 py-10 transition-colors duration-500 hover:border-gold/30"
+        >
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-8">
+            <span
+              class="text-6xl font-light italic text-gold/20 transition-colors duration-500 group-hover:text-gold/50 sm:text-7xl"
+              style="font-family: 'Playfair Display', serif"
+            >
+              02
+            </span>
+            <div>
+              <h3
+                class="text-2xl font-medium text-ivory sm:text-3xl"
+                style="font-family: 'Playfair Display', serif"
+              >
+                Un despido injusto
+              </h3>
+              <p class="mt-2 max-w-lg text-base text-ivory/50">
+                Te sacaron sin liquidación y sin explicación. Lo que te deben se reclama.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={120}>
+        <div
+          class="group border-t border-gold/10 py-10 transition-colors duration-500 hover:border-gold/30"
+        >
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-8">
+            <span
+              class="text-6xl font-light italic text-gold/20 transition-colors duration-500 group-hover:text-gold/50 sm:text-7xl"
+              style="font-family: 'Playfair Display', serif"
+            >
+              03
+            </span>
+            <div>
+              <h3
+                class="text-2xl font-medium text-ivory sm:text-3xl"
+                style="font-family: 'Playfair Display', serif"
+              >
+                Una herencia en disputa
+              </h3>
+              <p class="mt-2 max-w-lg text-base text-ivory/50">
+                Una herencia que divide a la familia. Defendemos tu parte con firmeza.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={180}>
+        <div
+          class="group border-t border-b border-gold/10 py-10 transition-colors duration-500 hover:border-gold/30"
+        >
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-baseline sm:gap-8">
+            <span
+              class="text-6xl font-light italic text-gold/20 transition-colors duration-500 group-hover:text-gold/50 sm:text-7xl"
+              style="font-family: 'Playfair Display', serif"
+            >
+              04
+            </span>
+            <div>
+              <h3
+                class="text-2xl font-medium text-ivory sm:text-3xl"
+                style="font-family: 'Playfair Display', serif"
+              >
+                Una deuda que no te pagan
+              </h3>
+              <p class="mt-2 max-w-lg text-base text-ivory/50">
+                Trabajaste, entregaste, facturaste. Y no te pagaron.
+              </p>
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+
+    <!-- CTA -->
+    <Reveal delay={240}>
+      <div class="mt-16 text-center">
+        <a
+          href="#servicios"
+          class="group/btn inline-flex items-center gap-3 rounded-full border border-gold/40 px-10 py-4 text-sm font-semibold uppercase tracking-widest text-gold transition-all duration-500 hover:border-gold hover:bg-gold hover:text-[#1c1c1c] hover:shadow-[0_10px_40px_-12px_rgba(184,149,62,0.6)]"
+        >
+          Así lo resolvemos
+          <svg
+            aria-hidden="true"
+            class="transition-transform duration-300 group-hover/btn:translate-x-1"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </Reveal>
+  </div>
+</section>
